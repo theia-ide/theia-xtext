@@ -4,6 +4,8 @@ A Theia Application with an Xtext-based Language Server extension.
 
 ## Build and Run
 
+_The build scripts assume the Theia repo checked out next to this repo_
+
 ```
 # Build language server
 cd io.typefox.xtext.langserver.example.parent/ 
