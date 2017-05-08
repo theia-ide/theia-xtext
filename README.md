@@ -6,21 +6,25 @@ A Theia Application with an Xtext-based Language Server extension.
 
 _The build scripts assume the Theia repo checked out next to this repo_
 
+### Build language server
 ```
-# Build language server
 cd io.typefox.xtext.langserver.example.parent/ 
   && ./gradlew shadowJar 
   && cd ..
+```
 
-# Build theia-extension
+### Build theia-extension
+```
 cd theia-dsl-extension/ 
   && npm install
   && cd ..
-  
-# Build Theia App
+```
+### Build Theia App
+```
 cd theia-app/
   && npm install
-  
-# Run The App
+```  
+### Run The App
+```
 npm run cold:start:web
 ```
