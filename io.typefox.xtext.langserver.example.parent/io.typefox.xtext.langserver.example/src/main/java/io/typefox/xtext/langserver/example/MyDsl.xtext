@@ -1,0 +1,50 @@
+grammar io.typefox.xtext.langserver.example.MyDsl with org.eclipse.xtext.common.Terminals
+
+generate myDsl "http://www.typefox.io/xtext/langserver/example/MyDsl"
+
+ProtocolDefinitions:
+	definitions+=Definitions*;
+
+Definitions:
+	TypeDefinition | ProtocolDefinition
+;	
+
+ProtocolDefinition :
+	'protocol' name=ID '{'
+		(methods+=Method)*
+	'}'	
+;
+
+Method :
+	Request | Notification
+;
+
+Request :
+	'request' name=ID '(' (params+=Property (',' params+=Property)*)? ')' ':' returnType=Type
+;
+
+Notification :
+	'notification' name=ID '(' (params+=Property (',' params+=Property)*)? ')'
+;
+
+TypeDefinition :
+	'type' name=ID ('extends' inheritedStructs+=[TypeDefinition] (',' inheritedStructs+=[TypeDefinition])*)? '{'
+		(property+=Property)*
+	'}';
+	
+Property :
+	name=ID (optional?='?')? ':' type=Type
+;
+	
+Type : 
+	{Primitive} name=Primitive | 
+	TypeReference
+;
+
+Primitive :
+	'number' | 'string' | 'boolean' 
+;
+
+TypeReference :
+	{TypeReference} typeDefinition=[TypeDefinition]
+;

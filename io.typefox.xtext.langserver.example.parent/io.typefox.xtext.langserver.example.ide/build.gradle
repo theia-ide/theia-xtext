@@ -1,0 +1,14 @@
+dependencies {
+	compile project(':io.typefox.xtext.langserver.example')
+	compile "org.eclipse.xtext:org.eclipse.xtext.ide:${xtextVersion}"
+	compile "org.eclipse.xtext:org.eclipse.xtext.xbase.ide:${xtextVersion}"
+}
+
+shadowJar {
+	baseName = 'dsl-language-server'
+	classifier = null
+	version = null
+	manifest {
+    	attributes 'Main-Class': 'org.eclipse.xtext.ide.server.ServerLauncher'
+	}
+}
