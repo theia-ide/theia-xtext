@@ -6,7 +6,7 @@
  */
 
 import { injectable, ContainerModule } from "inversify";
-import { LanguageContribution, IConnection, createServerProcess, forward } from "theia/lib/languages/node";
+import { LanguageContribution, IConnection, createServerProcess, forward } from "theia-core/lib/languages/node";
 
 
 export default new ContainerModule(bind => {

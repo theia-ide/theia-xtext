@@ -9,14 +9,15 @@ import 'reflect-metadata';
 import * as path from 'path';
 import { Container, injectable } from "inversify";
 import * as express from 'express';
-import { BackendApplication, ExpressContribution, applicationModule } from "theia/lib/application/node";
-import { fileSystemServerModule } from "theia/lib/filesystem/node";
-import { messagingModule } from "theia/lib/messaging/node";
-import { nodeLanguagesModule } from 'theia/lib/languages/node';
-// import { nodeJavaModule } from 'theia/lib/java/node';
-// import { nodePythonModule } from 'theia/lib/languages/python/node/node-python-module';
-import dslContributionModule from 'theia-dsl-extension/lib/node/backend-extension';
-import terminalBackendModule from 'theia/lib/terminal/node/terminal-backend-module'
+import { BackendApplication, BackendApplicationContribution, applicationModule } from "theia-core/lib/application/node";
+import { fileSystemServerModule } from "theia-core/lib/filesystem/node";
+import { messagingModule } from "theia-core/lib/messaging/node";
+import { nodeLanguagesModule } from 'theia-core/lib/languages/node';
+// import { nodeJavaModule } from 'theia-core/lib/java/node';
+// import { nodePythonModule } from 'theia-core/lib/languages/python/node/node-python-module';
+import terminalBackendModule from 'theia-core/lib/terminal/node/terminal-backend-module'
+
+import dslExtension from 'theia-dsl-extension/lib/node/backend-extension'
 
 // FIXME introduce default error handler contribution
 process.on('uncaughtException', function (err: any) {
@@ -27,9 +28,11 @@ process.on('uncaughtException', function (err: any) {
 });
 
 @injectable()
-class StaticServer implements ExpressContribution {
+class StaticServer implements BackendApplicationContribution {
     configure(app: express.Application): void {
-        app.use(express.static(path.join(__dirname, 'web')));
+        app.use(express.static(path.join(__dirname, '..'), {
+            index: path.join('frontend', 'index.html')
+        }));
     }
 }
 
@@ -41,7 +44,7 @@ container.load(nodeLanguagesModule);
 container.load(terminalBackendModule);
 // container.load(nodeJavaModule);
 // container.load(nodePythonModule);
-container.load(dslContributionModule);
-container.bind(ExpressContribution).to(StaticServer);
+container.load(dslExtension);
+container.bind(BackendApplicationContribution).to(StaticServer);
 const application = container.get(BackendApplication);
 application.start();
