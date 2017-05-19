@@ -28,5 +28,5 @@ cd theia-app/
 ```  
 ### Run The App
 ```
-npm run cold:start:web
+npm run start
 ```
