@@ -22,6 +22,7 @@
     "watch": "tsc --watch"
   },
   "devDependencies": {
+    "tslint": "^5.2.0",
     "typescript": "^2.3.2"
   },
   "files": [
