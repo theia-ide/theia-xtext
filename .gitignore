@@ -6,4 +6,4 @@ lib
 xtext-gen
 xtend-gen
 .gradle
-/.idea
+.idea
