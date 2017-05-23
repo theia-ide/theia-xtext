@@ -6,43 +6,36 @@
  */
 
 import { injectable, ContainerModule } from "inversify";
-import { LanguageContribution, IConnection, createServerProcess, forward } from "theia-core/lib/languages/node";
+import { BaseLanguageServerContribution, LanguageServerContribution, IConnection } from "theia-core/lib/languages/node";
 
 
 export default new ContainerModule(bind => {
-    bind<LanguageContribution>(LanguageContribution).to(DSLContribution);
+    bind<LanguageServerContribution>(LanguageServerContribution).to(DSLContribution);
 });
 
 const JAR = './node_modules/theia-dsl-extension/build/dsl-language-server.jar'
 
 @injectable()
-class DSLContribution implements LanguageContribution {
+class DSLContribution extends BaseLanguageServerContribution {
 
-    readonly description = {
-        id: 'dsl',
-        name: 'DSL',
-        documentSelector: ['dsl'],
-        fileEvents: [
-            '**/*.dsl'
-        ]
-    }
+    readonly id = "dsl";
+    readonly name = "DSL";
 
-    listen(clientConnection: IConnection): void {
+    start(clientConnection: IConnection): void {
         const command = 'java';
         const args: string[] = [
             '-jar',
-            JAR,
-            // 'debug'
+            JAR
         ];
-        try {
-            const serverConnection = createServerProcess(this.description.name, command, args);
-            forward(clientConnection, serverConnection);
-        } catch (err) {
-            console.error(err)
-            console.error("Error starting python language server.")
-            console.error("Please make sure it is installed on your system.")
-            console.error("Use the following command: 'pip install https://github.com/palantir/python-language-server/archive/master.zip'")
-        }
+        const serverConnection = this.createProcessStreamConnection(command, args);
+        this.forward(clientConnection, serverConnection);
+    }
+
+    protected onDidFailSpawnProcess(error: Error): void {
+        super.onDidFailSpawnProcess(error);
+        console.error("Error starting python language server.")
+        console.error("Please make sure it is installed on your system.")
+        console.error("Use the following command: 'pip install https://github.com/palantir/python-language-server/archive/master.zip'")
     }
 
 }

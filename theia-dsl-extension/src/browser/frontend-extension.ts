@@ -4,9 +4,19 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  */
-import { ContainerModule } from "inversify";
+import { ContainerModule, injectable, inject } from "inversify";
+import {
+    BaseLanguageClientContribution,
+    LanguageClientContribution,
+    LanguageClientFactory,
+    Languages,
+    Workspace
+} from 'theia-core/lib/languages/browser';
 
 export default new ContainerModule(bind => {
+    bind<LanguageClientContribution>(LanguageClientContribution).to(DslClientContribution)
+
+    // initialize monaco
     monaco.languages.register({
         id: 'dsl',
         aliases: ['DSL', 'dsl'],
@@ -98,3 +108,25 @@ export default new ContainerModule(bind => {
         },
     })
 })
+
+@injectable()
+export class DslClientContribution extends BaseLanguageClientContribution {
+
+    readonly id = "dsl";
+    readonly name = "DSL";
+
+    constructor(
+        @inject(Workspace) protected readonly workspace: Workspace,
+        @inject(Languages) protected readonly languages: Languages,
+        @inject(LanguageClientFactory) protected readonly languageClientFactory: LanguageClientFactory
+    ) {
+        super(workspace, languages, languageClientFactory);
+    }
+
+    protected get globPatterns() {
+        return [
+            '**/*.dsl'
+        ];
+    }
+
+}

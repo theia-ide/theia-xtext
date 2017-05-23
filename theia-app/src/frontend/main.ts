@@ -11,7 +11,7 @@ import { messagingModule } from "theia-core/lib/messaging/browser";
 import { navigatorModule } from "theia-core/lib/navigator/browser";
 import { fileSystemClientModule } from "theia-core/lib/filesystem/browser";
 import { editorModule } from "theia-core/lib/editor/browser";
-import { browserLanguagesModule } from 'theia-core/lib/languages/browser';
+import { frontendLanguagesModule } from 'theia-core/lib/languages/browser/frontend-languages-module';
 import { monacoModule } from 'theia-core/lib/monaco/browser';
 import { browserClipboardModule } from 'theia-core/lib/application/browser/clipboard/clipboard-module';
 import { browserMenuModule } from "theia-core/lib/application/browser/menu/menu-module";
@@ -38,7 +38,7 @@ import "xterm/dist/xterm.css";
     container.load(navigatorModule);
     container.load(fileSystemClientModule);
     container.load(editorModule);
-    container.load(browserLanguagesModule);
+    container.load(frontendLanguagesModule);
     container.load(monacoModule);
     // container.load(browserJavaModule);
 
