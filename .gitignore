@@ -5,5 +5,7 @@ bin
 lib
 xtext-gen
 xtend-gen
+src-gen
+webpack.config.js
 .gradle
 .idea

@@ -1,0 +1,32 @@
+{
+  "name": "@theia/xtext-dsl-extension",
+  "keywords": [
+    "theia-extension"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@theia/core": "latest",
+    "@theia/languages": "latest"
+  },
+  "devDependencies": {
+    "rimraf": "latest",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "copy-ls": "rm -rf ./build && mkdir build && cp ../xtext-dsl-language-server/io.typefox.xtext.langserver.example.ide/build/libs/dsl-language-server.jar ./build",
+    "clean": "rimraf lib",
+    "build": "tsc && yarn run copy-ls",
+    "watch": "tsc -w"
+  },
+  "theiaExtensions": [
+    {
+      "frontend": "lib/browser/frontend-extension",
+      "backend": "lib/node/backend-extension"
+    }
+  ]
+}
