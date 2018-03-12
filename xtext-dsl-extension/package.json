@@ -9,8 +9,8 @@
     "src"
   ],
   "dependencies": {
-    "@theia/core": "latest",
-    "@theia/languages": "latest"
+    "@theia/core": "next",
+    "@theia/languages": "next"
   },
   "devDependencies": {
     "rimraf": "latest",
