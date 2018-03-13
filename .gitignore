@@ -9,3 +9,4 @@ src-gen
 webpack.config.js
 .gradle
 .idea
+.metadata

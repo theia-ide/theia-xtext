@@ -7,12 +7,23 @@
 
 import { injectable, ContainerModule } from "inversify";
 import { BaseLanguageServerContribution, LanguageServerContribution, IConnection } from "@theia/languages/lib/node";
+import { createSocketConnection } from 'vscode-ws-jsonrpc/lib/server'
 import * as path from 'path';
+import * as net from 'net'
 
 
 export default new ContainerModule(bind => {
     bind<LanguageServerContribution>(LanguageServerContribution).to(DSLContribution);
 });
+
+function getPort(): number | undefined {
+    let arg = process.argv.filter(arg => arg.startsWith('--LSP_PORT='))[0]
+    if (!arg) {
+        return undefined
+    } else {
+        return Number.parseInt(arg.substring('--LSP_PORT='.length))
+    }
+}
 
 @injectable()
 class DSLContribution extends BaseLanguageServerContribution {
@@ -21,15 +32,25 @@ class DSLContribution extends BaseLanguageServerContribution {
     readonly name = "DSL";
 
     start(clientConnection: IConnection): void {
-        const jar = path.resolve(__dirname, '../../build/dsl-language-server.jar');
-
-        const command = 'java';
-        const args: string[] = [
-            '-jar',
-            jar
-        ];
-        const serverConnection = this.createProcessStreamConnection(command, args);
-        this.forward(clientConnection, serverConnection);
+        let socketPort = getPort();
+        if (socketPort) {
+            const socket = new net.Socket()
+            const serverConnection = createSocketConnection(socket, socket, () => {
+                socket.destroy()
+            });
+            this.forward(clientConnection, serverConnection)
+            socket.connect(socketPort)
+        } else {
+            const jar = path.resolve(__dirname, '../../build/dsl-language-server.jar');
+    
+            const command = 'java';
+            const args: string[] = [
+                '-jar',
+                jar
+            ];
+            const serverConnection = this.createProcessStreamConnection(command, args);
+            this.forward(clientConnection, serverConnection);
+        }
     }
 
     protected onDidFailSpawnProcess(error: Error): void {
