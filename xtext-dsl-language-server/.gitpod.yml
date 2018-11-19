@@ -1,0 +1,15 @@
+ports:
+- port: 3000
+tasks:
+- command: >
+   cd xtext-dsl-language-server &&
+   ./gradlew shadowJar &&
+   cd .. &&
+   yarn &&
+   cd app &&
+   yarn start --hostname 0.0.0.0 ../example-workspace
+  on: init
+- command: >
+   cd app &&
+   yarn start --hostname 0.0.0.0 ../example-workspace
+  on: restart

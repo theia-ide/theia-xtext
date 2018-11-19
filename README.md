@@ -2,7 +2,11 @@
 
 A Theia Application with an Xtext-based Language Server extension.
 
-## Build and Run
+## Development
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/theia-ide/theia-xtext)
+
+... or check it out locally:
 
 Build the language server
 ```

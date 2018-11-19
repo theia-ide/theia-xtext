@@ -1,33 +1,44 @@
-0 silly input [ 'build' ]
-1 silly flags { _: [ 'run' ], script: 'build', args: [] }
-2 verbose rootPath /Users/efftinge/Documents/theia-dev/theia-xtext
+0 silly input [ 'prepare' ]
+1 silly flags { _: [ 'run' ], script: 'prepare', args: [] }
+2 verbose rootPath /workspace/theia-xtext
 3 info version 2.4.0
-4 silly existsSync /Users/efftinge/Documents/theia-dev/theia-xtext/VERSION
+4 silly existsSync /workspace/theia-xtext/VERSION
 5 silly initialize attempt
 6 silly initialize success
 7 silly execute attempt
-8 silly runScriptInPackageStreaming [ 'build', [], '@theia/xtext-dsl-extension' ]
-9 silly getExecOpts { cwd: '/Users/efftinge/Documents/theia-dev/theia-xtext/xtext-dsl-extension' }
+8 silly runScriptInPackageStreaming [ 'prepare', [], '@theia/xtext-dsl-extension' ]
+9 silly getExecOpts { cwd: '/workspace/theia-xtext/xtext-dsl-extension' }
 10 error execute callback with error
-11 error Error: Command failed: npm run build
-11 error sh: copy-ls: command not found
-11 error npm ERR! file sh
+11 error Error: Command failed: npm run prepare
+11 error warning package.json: No license field
+11 error warning package.json: No license field
+11 error warning package.json: No license field
+11 error cp: cannot stat '../xtext-dsl-language-server/io.typefox.xtext.langserver.example.ide/build/libs/dsl-language-server.jar': No such file or directory
+11 error error Command failed with exit code 1.
+11 error error Command failed with exit code 1.
 11 error npm ERR! code ELIFECYCLE
-11 error npm ERR! errno ENOENT
-11 error npm ERR! syscall spawn
-11 error npm ERR! @theia/xtext-dsl-extension@0.1.0 build: `tsc && copy-ls`
-11 error npm ERR! spawn ENOENT
+11 error npm ERR! errno 1
+11 error npm ERR! @theia/xtext-dsl-extension@0.1.0 prepare: `yarn run clean && yarn run build`
+11 error npm ERR! Exit status 1
 11 error npm ERR!
-11 error npm ERR! Failed at the @theia/xtext-dsl-extension@0.1.0 build script.
+11 error npm ERR! Failed at the @theia/xtext-dsl-extension@0.1.0 prepare script.
 11 error npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
 11 error
 11 error npm ERR! A complete log of this run can be found in:
-11 error npm ERR!     /Users/efftinge/.npm/_logs/2017-12-04T12_22_35_235Z-debug.log
+11 error npm ERR!     /home/gitpod/.npm/_logs/2018-11-19T12_52_41_749Z-debug.log
 11 error
 11 error
-11 error > @theia/xtext-dsl-extension@0.1.0 build /Users/efftinge/Documents/theia-dev/theia-xtext/xtext-dsl-extension
-11 error > tsc && copy-ls
+11 error > @theia/xtext-dsl-extension@0.1.0 prepare /workspace/theia-xtext/xtext-dsl-extension
+11 error > yarn run clean && yarn run build
 11 error
+11 error yarn run v1.12.3
+11 error $ rimraf lib
+11 error Done in 0.16s.
+11 error yarn run v1.12.3
+11 error $ tsc && yarn run copy-ls
+11 error $ rm -rf ./build && mkdir build && cp ../xtext-dsl-language-server/io.typefox.xtext.langserver.example.ide/build/libs/dsl-language-server.jar ./build
+11 error info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+11 error info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
 11 error
-11 error     at Promise.all.then.arr (/Users/efftinge/Documents/theia-dev/theia-xtext/node_modules/execa/index.js:236:11)
+11 error     at Promise.all.then.arr (/workspace/theia-xtext/node_modules/execa/index.js:236:11)
 11 error     at <anonymous>
