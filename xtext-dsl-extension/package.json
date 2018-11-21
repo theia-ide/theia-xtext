@@ -14,11 +14,12 @@
   },
   "devDependencies": {
     "rimraf": "latest",
+    "copyfiles": "latest",
     "typescript": "latest"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
-    "copy-ls": "rm -rf ./build && mkdir build && cp ../xtext-dsl-language-server/io.typefox.xtext.langserver.example.ide/build/libs/dsl-language-server.jar ./build",
+    "copy-ls": "rimraf build && copyfiles -f ../xtext-dsl-language-server/io.typefox.xtext.langserver.example.ide/build/libs/dsl-language-server.jar build",
     "clean": "rimraf lib",
     "build": "tsc && yarn run copy-ls",
     "watch": "tsc -w"
