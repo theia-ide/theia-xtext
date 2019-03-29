@@ -10,7 +10,7 @@ import { BaseLanguageServerContribution, LanguageServerContribution, IConnection
 import { createSocketConnection } from 'vscode-ws-jsonrpc/lib/server'
 import * as path from 'path';
 import * as net from 'net'
-
+import { ProcessErrorEvent } from '@theia/process/lib/node/process';
 
 export default new ContainerModule(bind => {
     bind<LanguageServerContribution>(LanguageServerContribution).to(DSLContribution);
@@ -42,7 +42,6 @@ class DSLContribution extends BaseLanguageServerContribution {
             socket.connect(socketPort)
         } else {
             const jar = path.resolve(__dirname, '../../build/dsl-language-server.jar');
-    
             const command = 'java';
             const args: string[] = [
                 '-jar',
@@ -53,11 +52,11 @@ class DSLContribution extends BaseLanguageServerContribution {
         }
     }
 
-    protected onDidFailSpawnProcess(error: Error): void {
+    protected onDidFailSpawnProcess(error: ProcessErrorEvent): void {
         super.onDidFailSpawnProcess(error);
-        console.error("Error starting DSL language server.", error)
+        console.error("Error starting language server.");
+        console.error("Please make sure it is built: cd xtext-dsl-language-server; ./gradlew shadowJar.");
     }
-
 }
 
 
