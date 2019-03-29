@@ -10,7 +10,10 @@
   ],
   "dependencies": {
     "@theia/core": "next",
-    "@theia/languages": "next"
+    "@theia/languages": "next",
+    "@theia/monaco": "next",
+    "monaco-editor-core": "^0.14.6",
+    "monaco-languageclient": "^0.9.0"
   },
   "devDependencies": {
     "rimraf": "latest",
