@@ -9,14 +9,14 @@ buildscript {
 }
 
 subprojects {
-	ext.xtextVersion = '2.13.0'
+	ext.xtextVersion = '2.19.0'
 	repositories {
 		jcenter()
 		maven {
 			url 'https://oss.sonatype.org/content/repositories/snapshots'
 		}
 	}
-	
+
 	apply plugin: 'java'
 	apply plugin: 'org.xtext.xtend'
 	apply from: "${rootDir}/gradle/source-layout.gradle"
@@ -24,13 +24,13 @@ subprojects {
 	apply plugin: 'eclipse'
 	apply plugin: 'idea'
 	apply plugin: 'com.github.johnrengelman.shadow'
-	
+
 	group = 'io.typefox.xtext.langserver.example'
 	version = '1.0.0-SNAPSHOT'
-	
+
 	sourceCompatibility = '1.8'
 	targetCompatibility = '1.8'
-	
+
 	configurations.all {
 		exclude group: 'asm'
 	}
