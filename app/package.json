@@ -37,9 +37,9 @@
     "@theia/cli": "next"
   },
   "scripts": {
-    "prepare": "theia build",    
+    "prepare": "theia build --mode=development",
     "start": "theia start ./../example-workspace",
-    "watch": "theia build --watch"
+    "watch": "theia build --watch --mode=development"
   },
   "theia": {
     "target": "browser"

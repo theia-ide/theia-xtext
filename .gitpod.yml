@@ -8,4 +8,8 @@ tasks:
    yarn
   command: >
    cd app &&
-   yarn start --hostname 0.0.0.0 ../example-workspace
+   yarn start ../example-workspace
+vscode:
+  extensions:
+    - grammarcraft.xtext-lang@0.4.0:w2H9TVrWxFKd03NAD9MBJA==
+    - GrammarCraft.xtend-lang@0.1.0:Imxa0vYqAEpd11eN0u1gqw==
